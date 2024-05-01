@@ -48,3 +48,5 @@ private:
   Node(char p_label)
     : label(p_label){};
 };
+
+using node_ptr = std::shared_ptr<Node>;
