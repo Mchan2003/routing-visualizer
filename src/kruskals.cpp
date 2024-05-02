@@ -27,6 +27,8 @@ kruskals_algo(shared_ptr<Node> &node_ptr) {
     }
   }
 
+  // insert first node of prio queue which will be the "start"
+  seen.insert(get<1>(adj_queue.top())->label);
   while (!adj_queue.empty()) {
     auto min_edge = adj_queue.top();
     adj_queue.pop();
@@ -36,7 +38,6 @@ kruskals_algo(shared_ptr<Node> &node_ptr) {
     }
 
     MST.emplace_back(get<1>(min_edge), get<2>(min_edge), get<0>(min_edge));
-
     seen.insert((get<2>(min_edge)->label));
   }
 
