@@ -1,21 +1,23 @@
 #include <SFML/Graphics.hpp>
+#include <SFML/System.hpp>
+#include <iostream>
+#include <string>
 
-int main()
+#define HASHSIZE 100
+
+constexpr unsigned long hashFunction(const char* stringInput)
 {
-    sf::RenderWindow window(sf::VideoMode(500, 500), "SFML works!");
-    sf::CircleShape shape1(50.f);
-    shape1.setFillColor(sf::Color::Green);
-    shape1.setPosition(100,100);
+    unsigned long hash = 5381;
+    int c = 0;
+    while((c = *stringInput++)) hash = ((hash << 5) + hash) + c;
 
-    sf::CircleShape shape2(50.f);
-    shape2.setFillColor(sf::Color::Green);
-    shape2.setPosition(200,400);
+    return hash;
+}
 
-    sf::CircleShape shape3(50.f);
-    shape3.setFillColor(sf::Color::Green);
-    shape3.setPosition(300,200);
-
-    while (window.isOpen())
+void drawGraph(int position)
+{
+    sf::RenderWindow window(sf::VideoMode(1000, 1000), "SFML works!");
+    while(window.isOpen())
     {
         sf::Event event;
         while (window.pollEvent(event))
@@ -25,11 +27,41 @@ int main()
         }
 
         window.clear();
-        window.draw(shape1);
-        window.draw(shape2);
-        window.draw(shape3);
+        sf::CircleShape circle(50);
+        circle.setFillColor(sf::Color::Green);
+        circle.setPosition(position,position); 
+        window.draw(circle);
         window.display();
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::Backspace))
+        {
+            window.close();
+        }
     }
+}
 
+int main()
+{
+    std::string input;
+
+    while (input != "exit")
+    {
+        std::cout << "Enter Option: " << std::endl;
+        getline(std::cin, input);
+        switch(hashFunction(input.c_str()))
+        {
+            case hashFunction("three"):
+                drawGraph(300);
+                break;
+            case hashFunction("five"):
+                drawGraph(500);
+                break;
+            case hashFunction("two"):
+                drawGraph(200);
+                break;
+            case hashFunction("exit"):
+                goto exit_loop;
+        }
+    }
+    exit_loop:;
     return 0;
 }
