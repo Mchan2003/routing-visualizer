@@ -1,21 +1,33 @@
 #include "node.h"
+#include <cmath>
+#include <functional>
+#include <stdexcept>
+#include <utility>
 
-void Node::add_edge(char dest, int weight)
+uint32_t distance_function(std::pair<uint32_t, uint32_t> p1,
+                           std::pair<uint32_t, uint32_t> p2)
+{
+  int a = (int)abs((int)p1.first - (int)p2.first);
+  int b = (int)abs((int)p2.second - (int)p2.second);
+  return std::hypot(a, b);
+}
+
+void Node::add_edge(char dest)
 {
   // Pull ptr from map, both dest and source, assume all nodes exist
   std::shared_ptr<Node> dest_ptr;
   try {
     dest_ptr = all_nodes.at(dest);
   } catch (...) {
-    printf("out of range?\n");
-    dest_ptr = std::make_shared<Node>(Node(dest));
-    all_nodes[dest] = dest_ptr;
+    printf("Node doesn't exist, please create it first!\n");
+    throw std::out_of_range("Node doesn't exist, please create it first!");
   }
-  if (dest_ptr.get() != nullptr) {
+  if (dest_ptr.get() == nullptr) {
     throw std::invalid_argument("some how dest_ptr was not set");
   }
   auto source_ptr = all_nodes.at(label);
-  adj.push_back(std::make_pair(dest_ptr, weight));
+  auto weight = distance_function(source_ptr->coords, dest_ptr->coords);
+  source_ptr->adj.push_back(std::make_pair(dest_ptr, weight));
   dest_ptr->adj.push_back(std::make_pair(source_ptr, weight));
 }
 

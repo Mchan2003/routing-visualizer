@@ -7,6 +7,8 @@
 #include <utility>
 #include <vector>
 
+constexpr uint32_t COORD_MAX = 900;
+
 struct Node
 {
   // Change to map, letter is key
@@ -22,9 +24,15 @@ struct Node
   /// directional. (each edge is represented as a bidirectional edge), dont
   /// write to this directly, use the helper methods
   std::vector<std::pair<std::shared_ptr<Node>, int>> adj;
-  static std::shared_ptr<Node> create(char p_label)
+  std::pair<uint32_t, uint32_t> coords;
+  static std::shared_ptr<Node> create(char p_label,
+                                      std::pair<uint32_t, uint32_t> p_coords)
   {
     auto new_node = std::make_shared<Node>(Node(p_label));
+    if (p_coords.first > COORD_MAX || p_coords.second > COORD_MAX) {
+      throw std::out_of_range("coords out of range!");
+    }
+    new_node->coords = p_coords;
     new_node->label = p_label;
     all_nodes[p_label] = new_node;
     return new_node;
@@ -37,7 +45,7 @@ struct Node
   /// @param weight The weight of this edge
   /// @throws invalid_argument if the destination ptr was not set, should never
   /// actually happen.
-  void add_edge(char dest, int weight);
+  void add_edge(char dest);
 
   /// @brief Removes an edge
   /// @param dest The node to remove from
