@@ -45,7 +45,7 @@ struct Node
   /// @param weight The weight of this edge
   /// @throws invalid_argument if the destination ptr was not set, should never
   /// actually happen.
-  void add_edge(char dest);
+  void add_edge(char dest, int p_weight = 0);
 
   /// @brief Removes an edge
   /// @param dest The node to remove from

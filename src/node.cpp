@@ -12,7 +12,7 @@ uint32_t distance_function(std::pair<uint32_t, uint32_t> p1,
   return std::hypot(a, b);
 }
 
-void Node::add_edge(char dest)
+void Node::add_edge(char dest, int p_weight)
 {
   // Pull ptr from map, both dest and source, assume all nodes exist
   std::shared_ptr<Node> dest_ptr;
@@ -26,7 +26,12 @@ void Node::add_edge(char dest)
     throw std::invalid_argument("some how dest_ptr was not set");
   }
   auto source_ptr = all_nodes.at(label);
-  auto weight = distance_function(source_ptr->coords, dest_ptr->coords);
+  int weight;
+  if (p_weight == 0) {
+    weight = distance_function(source_ptr->coords, dest_ptr->coords);
+  } else {
+    weight = p_weight;
+  }
   source_ptr->adj.push_back(std::make_pair(dest_ptr, weight));
   dest_ptr->adj.push_back(std::make_pair(source_ptr, weight));
 }
