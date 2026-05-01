@@ -131,4 +131,4 @@ Coordinates are bounded to 900×900 pixels (`COORD_MAX`) so every node fits insi
 ---
 
 ## License
-This project was created for academic use.
+This project was created for academic use as part of **CMPE 130 - Advanced Algorithm Design** at San Jose State University.
