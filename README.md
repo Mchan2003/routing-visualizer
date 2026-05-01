@@ -2,10 +2,6 @@
 
 An interactive C++ graph visualization tool for exploring classic routing and spanning tree algorithms. Build weighted graphs interactively, then watch Dijkstra's shortest path, Prim's MST, and Kruskal's MST render in a real-time SFML window — with results highlighted directly on the graph.
 
-![CI](https://github.com/your-username/routing-visualizer/actions/workflows/ci.yml/badge.svg)
-
-Authors: Ryan Smith, Michael Chan, 
-
 ---
 
 ## Features
