@@ -1,6 +1,6 @@
 # Routing Visualizer
 
-An interactive C++ graph visualization tool for exploring classic routing and spanning tree algorithms. Build weighted graphs interactively, then watch Dijkstra's shortest path, Prim's MST, and Kruskal's MST render in a real-time SFML window — with results highlighted directly on the graph.
+An interactive C++ graph visualization tool for exploring classic routing and spanning tree algorithms built as part of **CMPE 130 - Advanced Algorithm Design** at San Jose State University. Build weighted graphs interactively, then watch Dijkstra's shortest path, Prim's MST, and Kruskal's MST render in a real-time SFML window — with results highlighted directly on the graph.
 
 ---
 
@@ -128,7 +128,5 @@ Coordinates are bounded to 900×900 pixels (`COORD_MAX`) so every node fits insi
 
 ---
 
----
-
 ## License
-This project was created for academic use as part of **CMPE 130 - Advanced Algorithm Design** at San Jose State University.
+This project was created for academic use.
